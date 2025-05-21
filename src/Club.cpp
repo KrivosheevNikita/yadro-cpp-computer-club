@@ -85,7 +85,11 @@ void Club::processEvent(const Event& e)
             if (freeTable)
                 errorEvent(e.time, "ICanWaitNoLonger!");
             else if (waitQueue.size() >= tables.size())
+            {
                 generateLeaveEvent(e.time, name);
+                clientsInClub.erase(name);
+                clientTable.erase(name);
+            }
             else
                 waitQueue.push_back(name);
         }
